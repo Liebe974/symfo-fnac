@@ -18,7 +18,11 @@ class Album
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Artist $artiste = null;
+    private ?Artist $artist = null;
+
+
+    #[ORM\Column(length: 255)]
+    private ?string $album_img = null;
 
     public function getId(): ?int
     {
@@ -37,14 +41,26 @@ class Album
         return $this;
     }
 
-    public function getArtiste(): ?Artist
+    public function getArtist(): ?Artist
     {
-        return $this->artiste;
+        return $this->artist;
     }
 
-    public function setArtiste(?Artist $artiste): static
+    public function setArtist(?Artist $artist): static
     {
-        $this->artiste = $artiste;
+        $this->artist = $artist;
+
+        return $this;
+    }
+
+    public function getAlbumImg(): ?string
+    {
+        return $this->album_img;
+    }
+
+    public function setAlbumImg(string $album_img): static
+    {
+        $this->album_img = $album_img;
 
         return $this;
     }
