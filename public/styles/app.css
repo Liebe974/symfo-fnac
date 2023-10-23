@@ -3,6 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    background: #010141;
+    color: #fff;
+}
 .cards-album {
     display: flex;
     flex-wrap: wrap;
@@ -11,12 +16,14 @@
 }
 
 .card-album {
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 10px;
     border-radius: 15px;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    backdrop-filter: blur(50px);
+    box-shadow: 1px 5px 2px 2px rgba(255, 255, 255, 0.3);
     align-items: center;
 }
 .img-album img{
@@ -24,3 +31,50 @@
     height: 100px;
     border-radius: 15px;
 }
+
+/* REGISTER */
+
+.btn {
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    
+}   
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+/* LOGIN */
+
+.form-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+}
+
+/* NAVBAR */
