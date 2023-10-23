@@ -17,9 +17,9 @@ class AlbumType extends AbstractType
             ->add('name')
             ->add('artist')
             ->add('album_img', FileType::class, [
-                'label' => 'Brochure (PDF file)',
+                'label' => 'Picture (JPG or PNG file)',
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
