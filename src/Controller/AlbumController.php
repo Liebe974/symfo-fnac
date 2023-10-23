@@ -53,6 +53,7 @@ class AlbumController extends AbstractController
     #[Route('/{id}/edit', name: 'app_album_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Album $album, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(AlbumType::class, $album);
         $form->handleRequest($request);
 
@@ -71,6 +72,7 @@ class AlbumController extends AbstractController
     #[Route('/{id}', name: 'app_album_delete', methods: ['POST'])]
     public function delete(Request $request, Album $album, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete'.$album->getId(), $request->request->get('_token'))) {
             $entityManager->remove($album);
             $entityManager->flush();
