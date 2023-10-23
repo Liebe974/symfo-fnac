@@ -23,7 +23,21 @@ class AlbumController extends AbstractController
             'albums' => $albumRepository->findAll(),
         ]);
     }
+    public function uploadPictureFile($albumImage, $slugger) {
+        $originalFilename = pathinfo($albumImage->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$albumImage->guessExtension();
 
+        try {
+            $albumImage->move(
+                $this->getParameter('album_pictures_directory'),
+                $newFilename
+            );
+            return $newFilename;
+        } catch (FileException $e) {
+            echo("<p>Une erreur est survenue lors de l'importation du fichier</p>");
+        }
+    }
     #[Route('/new', name: 'app_album_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
@@ -33,19 +47,9 @@ class AlbumController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $albumImage = $form->get('album_img')->getData();
-
-            $originalFilename = pathinfo($albumImage->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$albumImage->guessExtension();
-
-            try {
-                $albumImage->move(
-                    $this->getParameter('album_pictures_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                echo("<p>Une erreur est survenue lors de l'importation du fichier</p>");
-            }
+            if($albumImage){
+            
+                $newFilename = $this->uploadPictureFile($albumImage, $slugger);
 
             $album->setAlbumImg($newFilename);
 
@@ -59,6 +63,7 @@ class AlbumController extends AbstractController
             'album' => $album,
             'form' => $form,
         ]);
+        }
     }
 
     #[Route('/{id}', name: 'app_album_show', methods: ['GET'])]
@@ -79,19 +84,9 @@ class AlbumController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $albumImage = $form->get('album_img')->getData();
-
-            $originalFilename = pathinfo($albumImage->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$albumImage->guessExtension();
-
-            try {
-                $albumImage->move(
-                    $this->getParameter('album_pictures_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                echo("<p>Une erreur est survenue lors de l'importation du fichier</p>");
-            }
+            if($albumImage){
+            
+                $newFilename = $this->uploadPictureFile($albumImage, $slugger);
 
             $album->setAlbumImg($newFilename);
 
@@ -100,12 +95,13 @@ class AlbumController extends AbstractController
             return $this->redirectToRoute('app_album_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('album/edit.html.twig', [
-            'album' => $album,
-            'form' => $form,
-        ]);
     }
+    return $this->render('album/edit.html.twig', [
+        'album' => $album,
+        'form' => $form,
+    ]);
 
+    }
     #[Route('/{id}', name: 'app_album_delete', methods: ['POST'])]
     public function delete(Request $request, Album $album, EntityManagerInterface $entityManager): Response
     {
