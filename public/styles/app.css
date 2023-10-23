@@ -31,7 +31,30 @@ body {
     height: 100px;
     border-radius: 15px;
 }
+/* ARTIST */
+.cards-artist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.card-artist {
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    backdrop-filter: blur(50px);
+    box-shadow: 1px 5px 2px 2px rgba(255, 255, 255, 0.3);
+    align-items: center;
+}
 
+.img-artist img{
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+}
 /* REGISTER */
 
 .btn {

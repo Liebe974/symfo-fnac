@@ -19,7 +19,7 @@ class Artist
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[Vich\UploadableField(mapping: 'artistes', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'artists', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
