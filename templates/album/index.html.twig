@@ -15,10 +15,10 @@
             <div class="btns">
                 {% if app.user %}
                 <a class="btn btn-primary" href="{{ path('app_album_show', {'id': album.id}) }}">show</a>
-                {% endif %}
                 {% if album not in myAlbum %}         
-                <a class="btn btn-success" href="{{ path('app_cart', {'id_album': album.id}) }}">buy</a>
+                    <a class="btn btn-success" href="{{ path('app_cart', {'id_album': album.id}) }}">buy</a>
                 {% endif %}
+            {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-success" href="{{ path('app_album_edit', {'id': album.id}) }}">edit</a>
                 {% endif %}
