@@ -7,7 +7,7 @@
     <div class="cards-artist">
         {% for artist in artists %}
         <div class="card-artist">
-            <div class="img-artist"><img src="{{ asset('images/artists/'~artist.imageFile) }}"></div>
+            <div class="img-artist"><img src="{{ asset('images/artists/'~ artist.imageName) }}"></div>
 
             <p>{{ artist.id }} - <span>{{ artist.name }}</span></p>
 

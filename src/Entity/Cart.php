@@ -6,6 +6,7 @@ use App\Repository\CartRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
+
 class Cart
 {
     #[ORM\Id]
