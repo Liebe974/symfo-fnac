@@ -13,7 +13,10 @@
             <p>{{ album.name }} - <span>{{ album.artist.name }}</span></p>
 
             <div class="btns">
+                {% if app.user %}
                 <a class="btn btn-primary" href="{{ path('app_album_show', {'id': album.id}) }}">show</a>
+                <a class="btn btn-success" href="{{ path('app_cart', {'id_album': album.id}) }}">buy</a>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-success" href="{{ path('app_album_edit', {'id': album.id}) }}">edit</a>
                 {% endif %}
