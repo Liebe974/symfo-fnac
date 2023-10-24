@@ -20,7 +20,16 @@ class CartRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cart::class);
     }
-
+public function findAlbumBoughtByUser(int $id_user): array {
+    return $this->createQueryBuilder('c')
+        ->select('album')
+        ->from('App\Entity\Album', 'album')
+        ->andWhere('c.user = :id_user')
+        ->andWhere('c.album = album.id')
+        ->setParameter('id_user', $id_user)
+        ->getQuery()
+        ->getResult();
+}
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */

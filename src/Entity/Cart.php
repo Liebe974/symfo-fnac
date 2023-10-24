@@ -4,8 +4,9 @@ namespace App\Entity;
 
 use App\Repository\CartRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
-#[ORM\Entity(repositoryClass: CartRepository::class)]
+#[ORM\Entity(repositoryClass: CartRepository::class), UniqueConstraint(name: 'user_album_constraint', columns: ['user_id', 'album_id'], options: ['comment' => 'A user can\'t buy the same album twice'])]
 
 class Cart
 {
